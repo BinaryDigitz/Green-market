@@ -80,6 +80,18 @@ export const isAuth = asyncMiddleware( async (req, res ) =>{
     return res.json({ success: true, user})
 })
 
+// LOGOUT : /api/user/logout
+
+export const logout = asyncMiddleware( async ( req, res) =>{
+    res.clearCookie('token',{
+        httpOnly: true,
+        secure: NODE_ENV === 'production',
+        sameSite: NODE_ENV === 'production' ? 'none' : 'strict'
+    })
+    return res.json({ success: true, message: 'Logout successfully'})
+})
+
+
 function validateLogin(user) {
   const schema = Joi.object({
     email: Joi.string().min(3),
