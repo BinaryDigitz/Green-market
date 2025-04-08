@@ -3,7 +3,7 @@ import { adminLogin, adminLogout, isAdminAuth } from "../controllers/admin.contr
 import authAdmin from "../middleware/authAdmin.js";
 
 
-adminRouter = Router()
+const adminRouter = Router()
 
 adminRouter.post('/login', adminLogin)
 
