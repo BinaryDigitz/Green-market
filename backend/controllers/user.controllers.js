@@ -1,4 +1,5 @@
 import Joi from "joi";
+import { failFn, successFn } from "../middleware/return.js";
 import asyncMiddleware from "../middleware/asyncMiddleware.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
@@ -8,20 +9,12 @@ import { NODE_ENV } from "../config/env.js";
 export const register = asyncMiddleware(async (req, res, next) => {
   const { error } = validateRegister(req.body);
   if (error)
-    return res.json({
-      success: false,
-      statusCode: 400,
-      message: error.details[0].message,
-    });
+    return res.json( failFn(error.details[0].message));
   const { name, email, password } = req.body;
 
   const existingUser = await User.findOne({ email });
   if (existingUser)
-    return res.json({
-      success: false,
-      statusCode: 404,
-      message: "Email already exist",
-    });
+    return res.json(failFn('Email already exist', 400));
 
   const hashPassword = await bcrypt.hash(password, 10);
   let user = new User({ name, email, password: hashPassword });
@@ -34,30 +27,21 @@ export const register = asyncMiddleware(async (req, res, next) => {
     sameSite: NODE_ENV === "production" ? "none" : "strict", //CSRF PROTECTION
     maxAge: 7 * 24 * 60 * 60 * 1000, // cookie expiration time
   });
-  return res.json({
-    success: true,
-    statusCode: 201,
-    message: "User created successfully",
-    user: { email: user.email, name: user.name },
-  });
+  return res.json(successFn('User created successfully', 201, { email: user.email, name: user.name } )) 
+    
 });
 // LOGIN USER
 
 export const login = asyncMiddleware(async (req, res) => {
   const { error } = validateLogin(req.body);
-  if (error)
-    return res.json({
-      success: false,
-      msessage: error.details[0].message,
-      statusCode: 400,
-    });
+  if (error) return res.json( failFn(error.details[0].message));
 
   const { email, password } = req.body;
   const user = await User.findOne({ email })
-  if(!user ) return res.json({ success: false, statusCode: 404, message: 'User not found'})
+  if(!user ) return res.json(failFn('User not found', 404) )
  
     const hashPassword = await bcrypt.compare(password, user.password )
-    if(!hashPassword ) return res.json({ success: false, message:' Incorect password', stausCode: 400})
+    if(!hashPassword ) return res.json(failFn('Invalid password'))
     
     const token = user.generateToken()
     res.cookie('token', token, {
@@ -66,12 +50,7 @@ export const login = asyncMiddleware(async (req, res) => {
         sameSite: NODE_ENV === 'production' ? 'none' : 'strict',
         maxAge: 7 * 24 * 60 * 60 * 1000
     })
-    return res.json({
-        success: true,
-        statusCode: 201,
-        message: "User logged successfully",
-        user: { email: user.email, name: user.name },
-      });
+    return res.json(successFn( 'User logged in successfully'));
 });
 // CHECK AUTH : /api/user/is-auth
 export const isAuth = asyncMiddleware( async (req, res ) =>{
