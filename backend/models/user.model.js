@@ -21,6 +21,7 @@ const userSchema = mongoose.Schema({
         default:{}
     },
     avatar:{
+        type:String,
         default:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqafzhnwwYzuOTjTlaYMeQ7hxQLy_Wq8dnQg&s'
     }
 }, 
@@ -29,6 +30,6 @@ const userSchema = mongoose.Schema({
 userSchema.methods.generateToken = function (){
     return jwt.sign({ id: this._id}, JWT_SECRET, { expiresIn: '1h'})
 }
-const User = mongoose.models.User || mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema)
 
 export default User

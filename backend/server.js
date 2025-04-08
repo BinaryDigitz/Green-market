@@ -32,7 +32,7 @@ app.use(express.json())
 app.get('/', (req, res) => {
     res.json({ success: true, statusCode: 200, message: 'Hello world' })
 })
-app.use('/api/auth', userRouter)
+app.use('/api/user', userRouter)
 
 
 // error handlers
