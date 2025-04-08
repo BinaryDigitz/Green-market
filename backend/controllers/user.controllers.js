@@ -73,6 +73,12 @@ export const login = asyncMiddleware(async (req, res) => {
         user: { email: user.email, name: user.name },
       });
 });
+// CHECK AUTH : /api/user/is-auth
+export const isAuth = asyncMiddleware( async (req, res ) =>{
+    const { userId } = req.body
+    const user = await User.findById( {_id: userId}).select('-password')
+    return res.json({ success: true, user})
+})
 
 function validateLogin(user) {
   const schema = Joi.object({
