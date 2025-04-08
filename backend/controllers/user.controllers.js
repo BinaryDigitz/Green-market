@@ -67,7 +67,7 @@ export const logout = asyncMiddleware( async ( req, res) =>{
         secure: NODE_ENV === 'production',
         sameSite: NODE_ENV === 'production' ? 'none' : 'strict'
     })
-    return res.json({ success: true, message: 'Logout successfully'})
+    return res.json(successFn('Logout successfully'))
 })
 
 

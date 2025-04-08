@@ -6,6 +6,7 @@ import loadDb from "./config/loadDB.js";
 import errorHandler from "./middleware/ErrorHandler.js";
 import { JWT_SECRET } from "./config/env.js";
 import userRouter from "./routes/userRoute.js";
+import adminRouter from "./routes/adminRoute.js";
 const app = express()
 
 process.on('uncaughtException', ex => {
@@ -33,6 +34,7 @@ app.get('/', (req, res) => {
     res.json({ success: true, statusCode: 200, message: 'Hello world' })
 })
 app.use('/api/user', userRouter)
+app.use('/api/admin', adminRouter)
 
 
 // error handlers

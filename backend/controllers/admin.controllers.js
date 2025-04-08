@@ -25,6 +25,26 @@ export const adminLogin = asyncMiddleware(async (req, res) => {
   }
 });
 
+// CHECK AUTH : /api/admin/is-auth
+export const isAdminAuth = asyncMiddleware( async (req, res ) =>{
+    return res.json({ success: true})
+})
+
+
+// LOGOUT : /api/admin/logout
+
+export const adminLogout = asyncMiddleware( async ( req, res) =>{
+    res.clearCookie('adminToken',{
+        httpOnly: true,
+        secure: NODE_ENV === 'production',
+        sameSite: NODE_ENV === 'production' ? 'none' : 'strict'
+    })
+    return res.json(successFn('Logout successfully'))
+})
+
+
+
+
 function validateLogin(user) {
   const schema = Joi.object({
     email: Joi.sting().min(3),
