@@ -4,15 +4,22 @@ import { useNavigate } from "react-router-dom";
 
 function AppProvider({ children }) {
   const navigate = useNavigate();
- const [ user, setUser ] = useState(null)
+ const [ user, setUser ] = useState(true)
  const [ isSeller, setIsSeller ] = useState(false)
+ const [showLoginPage, setShowLoginPage ] = useState(false)
+ function closeAllMenu(){
+
+ }
 
   const values = {
     navigate,
     user, 
     setUser,
     setIsSeller,
-    isSeller
+    isSeller,
+    closeAllMenu,
+    showLoginPage,
+    setShowLoginPage
   };
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
 }
