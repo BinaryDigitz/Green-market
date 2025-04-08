@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import loadDb from "./config/loadDB.js";
 import errorHandler from "./middleware/ErrorHandler.js";
 import { JWT_SECRET } from "./config/env.js";
+import userRouter from "./routes/userRoute.js";
 const app = express()
 
 process.on('uncaughtException', ex => {
@@ -31,6 +32,7 @@ app.use(express.json())
 app.get('/', (req, res) => {
     res.json({ success: true, statusCode: 200, message: 'Hello world' })
 })
+app.use('/api/auth', userRouter)
 
 
 // error handlers
