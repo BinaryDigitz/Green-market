@@ -9,6 +9,7 @@ import userRouter from "./routes/userRoute.js";
 import adminRouter from "./routes/adminRoute.js";
 import productRouter from './routes/productRoute.js'
 import cartRouter from "./routes/cartRoute.js";
+import addressRouter from "./routes/addressRoute.js";
 const app = express()
 
 process.on('uncaughtException', ex => {
@@ -39,6 +40,7 @@ app.use('/api/user', userRouter)
 app.use('/api/admin', adminRouter)
 app.use('/api/products', productRouter)
 app.use('/api/cart', cartRouter)
+app.use('/api/address', addressRouter)
 
 
 // error handlers
