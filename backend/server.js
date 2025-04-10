@@ -7,6 +7,7 @@ import errorHandler from "./middleware/ErrorHandler.js";
 import { JWT_SECRET } from "./config/env.js";
 import userRouter from "./routes/userRoute.js";
 import adminRouter from "./routes/adminRoute.js";
+import productRouter from './routes/productRoute.js'
 const app = express()
 
 process.on('uncaughtException', ex => {
@@ -35,6 +36,7 @@ app.get('/', (req, res) => {
 })
 app.use('/api/user', userRouter)
 app.use('/api/admin', adminRouter)
+app.use('/api/products', productRouter)
 
 
 // error handlers
