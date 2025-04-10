@@ -1,13 +1,14 @@
 import { failFn, successFn } from "../middleware/return.js";
 import asyncMiddleware from "../middleware/asyncMiddleware.js";
-import { ADMIN_EMAIL, ADMIN_PASSWORD, JWT_SECRET } from "../config/env.js";
+import { ADMIN_EMAIL, ADMIN_PASSWORD, JWT_SECRET, NODE_ENV } from "../config/env.js";
+import Joi from 'joi'
 import jwt from "jsonwebtoken";
 
 // Admin login : api/admin/login
 
 export const adminLogin = asyncMiddleware(async (req, res) => {
-  const { error } = validateLogin(req.body);
-  if (error) return res.json(failFn(error.details[0].message));
+ 
+  // if (error) return res.json(failFn(error.details[0].message));
 
   const { email, password } = req.body;
   if (password === ADMIN_PASSWORD && email === ADMIN_EMAIL) {
@@ -45,10 +46,4 @@ export const adminLogout = asyncMiddleware( async ( req, res) =>{
 
 
 
-function validateLogin(user) {
-  const schema = Joi.object({
-    email: Joi.sting().min(3),
-    password: Joi.sting().min(3),
-  });
-  return schema.validate(user);
-}
+

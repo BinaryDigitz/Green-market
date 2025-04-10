@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
-  const isLogin =1
+  const isLogin =0
   const navlinks = [
     { name: "Home", link: "/" },
     { name: "Products", link: "/products" },
