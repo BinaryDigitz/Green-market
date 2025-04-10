@@ -8,6 +8,7 @@ import { JWT_SECRET } from "./config/env.js";
 import userRouter from "./routes/userRoute.js";
 import adminRouter from "./routes/adminRoute.js";
 import productRouter from './routes/productRoute.js'
+import cartRouter from "./routes/cartRoute.js";
 const app = express()
 
 process.on('uncaughtException', ex => {
@@ -37,6 +38,7 @@ app.get('/', (req, res) => {
 app.use('/api/user', userRouter)
 app.use('/api/admin', adminRouter)
 app.use('/api/products', productRouter)
+app.use('/api/cart', cartRouter)
 
 
 // error handlers
