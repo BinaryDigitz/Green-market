@@ -8,7 +8,7 @@ import Address from "../models/address.model.js";
     return { success: true, statusCode, message, address}
  }
 
-export const addAddress = asyncMiddleware( async (res, res) =>{
+export const addAddress = asyncMiddleware( async (req, res) =>{
     const { address, userId } = req.body
     await Address.create({ ...address, userId})
  return res.json(successFn('Address added succesfull', 201))

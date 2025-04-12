@@ -1,12 +1,15 @@
-import { StrictMode } from 'react'
-import React from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import AdminProvider from './context/AdminProvider.jsx'
+import { StrictMode } from "react";
+import React from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import AdminProvider from "./context/AdminProvider.jsx";
+import { BrowserRouter } from "react-router-dom";
 
-createRoot(document.getElementById('root')).render(
-  <AdminProvider>
-    <App />
-  </AdminProvider>,
-)
+createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <AdminProvider>
+      <App />
+    </AdminProvider>
+  </BrowserRouter>
+);

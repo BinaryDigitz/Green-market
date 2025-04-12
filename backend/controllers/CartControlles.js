@@ -1,4 +1,4 @@
-import asyncMiddleware from "../middleware/asyncMiddleware";
+import asyncMiddleware from "../middleware/asyncMiddleware.js";
 import { successFn } from "../middleware/return.js";
 import User from '../models/user.model.js'
 

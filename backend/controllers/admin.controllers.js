@@ -20,7 +20,7 @@ export const adminLogin = asyncMiddleware(async (req, res) => {
       sameSite: NODE_ENV === "production" ? "none" : "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-    return res.json(successFn("Admin loggedin Successfully"));
+    return res.json(successFn("Admin loggedin Successfully", 200, {adminToken: token}));
   } else {
     res.json(failFn("Invalid credentials"));
   }

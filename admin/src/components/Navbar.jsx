@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AdminContext } from "../context/AdminProvider";
 
 function Navbar() {
-  const isLogin =0
+  const [  ] = useState(false)
+  const { navigate,isLoggedIn, setLoggedIn  } = useContext(AdminContext);
+
   const navlinks = [
     { name: "Home", link: "/" },
     { name: "Products", link: "/products" },
@@ -24,13 +27,25 @@ function Navbar() {
         ))}
       </ul>
       <div>
-        {
-          isLogin ? (
-            <button className="border font-medium border-red-200 px-5 py-1 rounded-sm bg-red-100 cursor-pointer text-red-800 hover:bg-red-300">Log out</button>
-          ): (
-            <button className="border font-medium border-green-200 px-6 py-1 rounded-sm bg-green-100 cursor-pointer text-green-800 hover:bg-green-300">Login</button>
-          )
-        }
+        {isLoggedIn ? (
+          <button
+            onClick={() => {
+              localStorage.removeItem("adminToken");
+              setTimeout(() => navigate("/login", 100));
+              setLoggedIn('false')
+            }}
+            className="border font-medium border-red-200 px-5 py-1 rounded-sm bg-red-100 cursor-pointer text-red-800 hover:bg-red-300"
+          >
+            Log out
+          </button>
+        ) : (
+          <button
+            onClick={() => navigate("/login")}
+            className="border font-medium border-green-200 px-6 py-1 rounded-sm bg-green-100 cursor-pointer text-green-800 hover:bg-green-300"
+          >
+            Login
+          </button>
+        )}
       </div>
     </nav>
   );

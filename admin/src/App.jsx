@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
-      <BrowserRouter>
+      
         <header>
           <Navbar />
           <div>
@@ -21,8 +21,7 @@ function App() {
             <Route path="/products" element={<Products />} />
           </Routes>
         </main>
-        <footer>footer</footer>
-      </BrowserRouter>
+       
     </>
   );
 }

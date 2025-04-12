@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
-  const { baseUrl, setLoggedIn } = useContext(AdminContext);
+  const { baseUrl, setLoggedIn, } = useContext(AdminContext);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [user, setUser] = useState({
@@ -29,7 +29,7 @@ function Login() {
         email,
         password,
       });
-      const { success, message } = data;
+      const { success, message, user } = data;
       if (!success) {
         setError(message);
         setLoading(false);
@@ -41,6 +41,8 @@ function Login() {
       navigate("/")
       setTimeout(() => navigate("/"), 1000);
       clearForm();
+      localStorage.setItem('adminToken', user.adminToken)
+      
     } catch (ex) {
       toast.error(ex.message);
       console.log(ex);

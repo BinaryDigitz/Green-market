@@ -5,7 +5,7 @@ import { addProduct, deleteProduct, getProducts, getProduct, updateProduct } fro
 
 const productRouter = Router()
 
-productRouter.post('/add',upload.array([images]), addProduct)
+productRouter.post('/add',upload.array(['images']), addProduct)
 
 productRouter.get('/list', getProducts)
 

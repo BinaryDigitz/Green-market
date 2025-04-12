@@ -1,4 +1,4 @@
-import { String } from "joi";
+
 import mongoose from "mongoose";
 
 const addressSchema = mongoose.Schema({
